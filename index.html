@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html style="height:100%; margin:0;">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>webapplications with asynchronous js / dataflow / grpc / tcp</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script type="text/javascript">
+  if (document.addEventListener) {
+      document.addEventListener('contextmenu', function (e) {
+          e.preventDefault();
+      }, false);
+  } else {
+      document.attachEvent('oncontextmenu', function () {
+          window.event.returnValue = false;
+      });
+  }
+</script>
+<script type="text/javascript">
+  function disableClick(){
+    document.onclick = function(event){
+      if (event.button == 2) {
+        alert('Right Click Message');
+        return false;
+      }
+    }
+  }
+</script>
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
+    font-family: 'EB Garamond', serif;
+}
+.full-width-container {
+    width: 100vw;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+#appIframe {
+    width: 100%;
+    height: 1200px;
+    border: none !important;
+    outline: none;
+    display: block;
+}
+.return {
+  background: linear-gradient(
+    45deg, 
+    rgb(88, 110, 139) 25%,
+    rgba(88, 110, 139, 0.5) 25%, 
+    rgba(88, 110, 139, 0.5) 50%, 
+    rgba(88, 110, 139, 1) 50%, 
+    rgba(88, 110, 139, 1) 75%, 
+    rgba(88, 110, 139, 0.5) 75%, 
+    rgba(88, 110, 139, 0.5) 100% 
+  );
+  color: #0f0f0e; 
+  font-size: 30px; 
+  font-weight: bold; 
+  line-height: 1.5em; 
+  padding: 20px;
+  margin: 10px 0; 
+  text-align: center; 
+  border-radius: 8px; 
+}
+
+.social-panel {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #c0c0c0; 
+  padding: 10px;
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.social-icon {
+  display: block;
+  margin: 10px 0;
+  text-align: left;
+  font-weight: bold; 
+  text-decoration: none;
+  color: #444 !important; 
+  border-radius: 8px; 
+  padding: 5px 10px;
+}
+
+.social-icon.bluesky {
+  background-color: hsl(200, 16%, 49%); 
+}
+
+.social-icon.twitter {
+  background-color: hsl(200, 16%, 49%); 
+}
+
+.social-icon.linkedin {
+  background-color: hsl(200, 16%, 49%); 
+}
+
+.social-icon.instagram {
+  background-color: hsl(200, 16%, 49%);
+}
+
+.social-icon.threads {
+  background-color: hsl(200, 16%, 49%); 
+}
+
+.social-icon.github {
+  background-color: hsl(200, 16%, 49%); 
+}
+
+.social-icon img {
+  width: 24px; 
+  height: auto;
+  filter: grayscale(100%) brightness(0) invert(1); 
+  vertical-align: middle;
+}
+
+.social-icon:hover img {
+  filter: grayscale(0%) brightness(0) invert(0); 
+}
+
+img.bg {
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  img.bg {
+    left: 50%;
+    margin-left: -512px;
+  }
+}
+
+img {
+  min-height: 10%;
+  width: 8em;
+  height: auto;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.content-top, .content-bottom {
+  position: absolute;
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.content-top {
+  top: 10%; 
+}
+
+.content-bottom {
+  top: 50%; 
+}
+
+.text-container {
+  width: 800px;
+  margin: 0 auto; 
+}
+
+.return {
+  font-size: 30px;
+  color: #0f0f0e !important;
+  font-weight: bold;
+  line-height: 1.5em;
+  margin: 0;
+}
+
+.large {
+  font-size: 60px;
+}
+
+@media screen and (max-width: 1024px) {
+  .text-container {
+    width: 90%;
+  }
+  .content-top, .content-bottom {
+    left: 50%;
+    transform: none;
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #5c5c57; 
+  color: #444;
+  font-size: 14px;
+}
+</style>
+</head>
+<body style="color: #444;" onLoad="disableClick()">
+
+
+<div class="full-width-container"> 
+    <div class="row no-gutters">            
+        <div class="col-12">      
+            <iframe id="appIframe" 
+                    frameborder="0" 
+                    allowfullscreen 
+                    src="https://technoengineering.pythonanywhere.com" 
+                    scrolling="yes">
+            </iframe>        
+        </div>                                      
+    </div>                    
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const iframe = document.getElementById('appIframe');
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentLang = urlParams.get('lang');
+    
+    if (currentLang && iframe) {
+        iframe.src = `https://technoengineering.pythonanywhere.com/?lang=${currentLang}`;
+    }
+});
+</script>
+
+<script type="text/javascript">
+  document.addEventListener("keydown", function(e){
+    if (e.ctrlKey || e.keyCode == 123) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  });
+</script>
+</body>
+</html>
