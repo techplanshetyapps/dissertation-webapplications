@@ -122,6 +122,33 @@ input:checked + .slider:before {
 .dropdown-toggle {
     font-weight: bold;
 }
+
+.gradient {
+  background-image: radial-gradient(circle at center right, 
+    rgb(20, 30, 70) 0%,        rgb(20, 30, 70) 18%,      
+    rgb(0, 110, 145) 18%,      rgb(0, 110, 145) 36%,     
+    rgb(0, 175, 185) 36%,      rgb(0, 175, 185) 54%,   
+    rgb(220, 245, 255) 54%,    rgb(220, 245, 255) 58%,    
+    rgb(0, 175, 185) 58%,      rgb(0, 175, 185) 74%,    
+    rgb(0, 110, 145) 74%,      rgb(0, 110, 145) 90%,     
+    rgb(100, 210, 255) 90%,    rgb(100, 210, 255) 94%,    
+    rgb(20, 30, 70) 94%,       rgb(20, 30, 70) 100%      
+  );
+  animation: move-gradient 5s ease-in-out infinite alternate;
+  background-size: 200% 200%;
+}
+
+@keyframes move-gradient {
+  0% {
+    background-position: center right;
+  }
+  50% {
+    background-position: center center;
+  }
+  100% {
+    background-position: center left;
+  }
+}
 </style>
 </head>
 <body>
@@ -132,7 +159,7 @@ input:checked + .slider:before {
 
         <div class="relative z-10 text-center text-white px-4">
             <h1 class="text-4xl font-bold text-gray-100 mb-4">404 Not found</h1>
-            <p class="text-xl text-gray-300 mb-8">The page you are looking for does not exist.</p>
+            <p class="text-xl text-gray-300 mb-8">The is a server error.</p>
         </div>
     </div>
 
